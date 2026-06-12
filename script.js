@@ -2,69 +2,9 @@
 // Newton's Group Blogs - Static Website JavaScript
 // ============================================================================
 
-// Blog posts data
-const blogPosts = [
-    {
-        id: 1,
-        title: "How AI is Revolutionizing Clinical Decision Making",
-        slug: "how-ai-is-revolutionizing-clinical-decision-making",
-        excerpt: "Discover how Newton's AI clinical decision support system is helping doctors make faster, more accurate diagnoses.",
-        category: "ai",
-        date: "June 10, 2026",
-        author: "Dr. Rajesh Kumar",
-        image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663755679698/77CpPznb5f3jsqbG3jkpJo/newtons-ai-section-XmVU8rokpv5aHHMVGdMstU.webp",
-    },
-    {
-        id: 2,
-        title: "Newton's Hospitals: Setting New Standards in Patient Care",
-        slug: "newtons-hospitals-setting-new-standards-in-patient-care",
-        excerpt: "Learn about our commitment to providing world-class healthcare facilities with cutting-edge technology and compassionate care.",
-        category: "hospitals",
-        date: "June 8, 2026",
-        author: "Dr. Priya Sharma",
-        image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663755679698/77CpPznb5f3jsqbG3jkpJo/newtons-hospitals-section-Qk758qz6S6Q54Tqq9rYNGv.webp",
-    },
-    {
-        id: 3,
-        title: "Streamlining Hospital Operations with Newton's HMS",
-        slug: "streamlining-hospital-operations-with-newtons-hms",
-        excerpt: "Explore how our Hospital Management System is transforming administrative workflows and improving patient outcomes.",
-        category: "hms",
-        date: "June 5, 2026",
-        author: "Amit Patel",
-        image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663755679698/77CpPznb5f3jsqbG3jkpJo/newtons-hms-section-h9XkNEzXsqiY9LH4WADrGD.webp",
-    },
-    {
-        id: 4,
-        title: "NEET PG Success Stories: How Newton's Prepares Future Doctors",
-        slug: "neet-pg-success-stories-how-newtons-prepares-future-doctors",
-        excerpt: "Read inspiring stories of medical students who achieved their NEET PG goals with Newton's comprehensive preparation platform.",
-        category: "neetpg",
-        date: "June 1, 2026",
-        author: "Dr. Neha Gupta",
-        image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663755679698/77CpPznb5f3jsqbG3jkpJo/newtons-neetpg-section-Q9FAa5Exz5xKQ6CZVyMiCZ.webp",
-    },
-    {
-        id: 5,
-        title: "The Future of Medical AI: Newton's Vision",
-        slug: "the-future-of-medical-ai-newtons-vision",
-        excerpt: "Insights into how Newton's AI is shaping the future of healthcare with machine learning and predictive analytics.",
-        category: "ai",
-        date: "May 28, 2026",
-        author: "Dr. Vikram Singh",
-        image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663755679698/77CpPznb5f3jsqbG3jkpJo/newtons-ai-section-XmVU8rokpv5aHHMVGdMstU.webp",
-    },
-    {
-        id: 6,
-        title: "Building Trust in Healthcare Technology",
-        slug: "building-trust-in-healthcare-technology",
-        excerpt: "Understanding the importance of transparency and security in healthcare systems and how Newton's prioritizes patient data.",
-        category: "hospitals",
-        date: "May 25, 2026",
-        author: "Dr. Anjali Verma",
-        image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663755679698/77CpPznb5f3jsqbG3jkpJo/newtons-hospitals-section-Qk758qz6S6Q54Tqq9rYNGv.webp",
-    },
-];
+// Blog posts data - will be loaded from JSON
+let allBlogPosts = [];
+let blogPosts = [];
 
 const categoryLabels = {
     all: "All Posts",
@@ -76,10 +16,27 @@ const categoryLabels = {
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', function() {
-    renderBlogGrid('all');
+    loadBlogsFromJSON();
     attachFilterListeners();
-    attachBlogCardListeners();
 });
+
+// Load blogs from JSON file
+async function loadBlogsFromJSON() {
+    try {
+        const response = await fetch('/data/blogs-30k.json');
+        allBlogPosts = await response.json();
+        
+        // Use first 6 blogs for the home page display
+        blogPosts = allBlogPosts.slice(0, 6);
+        
+        renderBlogGrid('all');
+        attachBlogCardListeners();
+    } catch (error) {
+        console.error('Error loading blogs:', error);
+        // Fallback to empty state
+        blogPosts = [];
+    }
+}
 
 // Render blog grid
 function renderBlogGrid(category) {
