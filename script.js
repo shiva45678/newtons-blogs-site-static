@@ -196,3 +196,91 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+
+// ============================================================================
+// Blog Feed Search Functionality
+// ============================================================================
+
+let feedBlogs = [];
+
+async function initializeFeedSearch() {
+    try {
+        const response = await fetch('/data/blogs-30k.json');
+        feedBlogs = await response.json();
+        displayFeedBlogs(feedBlogs.slice(0, 6));
+    } catch (error) {
+        console.error('Error loading feed blogs:', error);
+        const feedResults = document.getElementById('feed-results');
+        if (feedResults) {
+            feedResults.innerHTML = '<div class="feed-no-results" style="grid-column: 1 / -1;"><h3>Unable to load blogs</h3><p>Please try again later</p></div>';
+        }
+    }
+}
+
+function displayFeedBlogs(blogs) {
+    const feedResults = document.getElementById('feed-results');
+    if (!feedResults) return;
+    
+    if (blogs.length === 0) {
+        feedResults.innerHTML = '<div class="feed-no-results" style="grid-column: 1 / -1;"><h3>No blogs found</h3><p>Try adjusting your search</p></div>';
+        return;
+    }
+    
+    feedResults.innerHTML = blogs.slice(0, 6).map(blog => `
+        <div class="feed-item" onclick="window.location.href='/blogs/${blog.slug}/'">
+            <span class="feed-item-badge">${blog.category}</span>
+            <h3 class="feed-item-title">${blog.title}</h3>
+            <p class="feed-item-excerpt">${blog.excerpt}</p>
+            <div class="feed-item-meta">
+                <span>✍️ ${blog.author}</span>
+                <span>📅 ${blog.date}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+function searchFeedBlogs(query) {
+    if (query.trim() === '') {
+        displayFeedBlogs(feedBlogs.slice(0, 6));
+        return;
+    }
+    
+    const searchTerm = query.toLowerCase();
+    const results = feedBlogs.filter(blog => 
+        blog.title.toLowerCase().includes(searchTerm) ||
+        blog.excerpt.toLowerCase().includes(searchTerm) ||
+        blog.author.toLowerCase().includes(searchTerm) ||
+        (blog.tags && blog.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
+    );
+    
+    displayFeedBlogs(results);
+}
+
+// Attach feed search listener
+document.addEventListener('DOMContentLoaded', function() {
+    const feedSearchInput = document.getElementById('feed-search');
+    if (feedSearchInput) {
+        feedSearchInput.addEventListener('input', function(e) {
+            searchFeedBlogs(e.target.value);
+        });
+    }
+    
+    // Initialize feed on page load
+    if (document.getElementById('feed-results')) {
+        initializeFeedSearch();
+    }
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && document.querySelector(href)) {
+            e.preventDefault();
+            document.querySelector(href).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
