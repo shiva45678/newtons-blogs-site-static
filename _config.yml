@@ -1,0 +1,32 @@
+# GitHub Pages Configuration
+markdown: kramdown
+theme: null
+plugins: []
+
+# Exclude files
+exclude:
+  - .gitignore
+  - README.md
+  - GITHUB_PAGES_SETUP.md
+  - SEO_OPTIMIZATION.md
+  - DEPLOYMENT_STATUS.md
+  - data/
+  - node_modules/
+
+# Include hidden files
+include:
+  - .htaccess
+  - .nojekyll
+
+# Build settings
+keep_files:
+  - blogs
+  - data
+  - styles.css
+  - script.js
+  - index.html
+  - robots.txt
+  - sitemap.xml
+  - feed.xml
+  - llms.txt
+  - humans.txt

@@ -1,0 +1,30 @@
+# Newton's Group Blogs - robots.txt
+User-agent: *
+Allow: /
+Allow: /blogs/
+Allow: /sitemap.xml
+Allow: /sitemap-index.xml
+
+Disallow: /data/
+Disallow: /admin/
+Disallow: /*.json$
+
+Crawl-delay: 1
+Request-rate: 30/1m
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://blogs.newtons.in/sitemap.xml
+Sitemap: https://blogs.newtons.in/sitemap-index.xml

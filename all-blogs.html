@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Blogs - Newton's Group Healthcare Innovation</title>
+    <meta name="description" content="Browse all 30,000+ blogs about AI in healthcare, clinical decision support, and medical innovation from Newton's Group.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .all-blogs-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .all-blogs-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .blog-stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .search-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-input-wrapper input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-input-wrapper input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-input-wrapper input::placeholder {
+            color: #a0aec0;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .search-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            color: #4a5568;
+        }
+
+        .blogs-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .blog-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .blog-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.75rem;
+            gap: 1rem;
+        }
+
+        .blog-item-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin: 0;
+            flex: 1;
+        }
+
+        .blog-item-badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            background: #edf2f7;
+            color: #667eea;
+            border-radius: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .blog-item-excerpt {
+            color: #718096;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .blog-item-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #a0aec0;
+            flex-wrap: wrap;
+        }
+
+        .blog-item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination button {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 0.35rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .pagination button:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .pagination button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: #f7fafc;
+            border-radius: 1rem;
+            color: #718096;
+        }
+
+        .no-results h3 {
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .all-blogs-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .blog-stats {
+                gap: 1rem;
+            }
+
+            .stat-card {
+                min-width: 150px;
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.75rem;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .search-input-wrapper {
+                min-width: 100%;
+            }
+
+            .filter-buttons {
+                width: 100%;
+            }
+
+            .filter-btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="sticky-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo-link">
+                    <div class="logo">
+                        <div class="logo-icon">N</div>
+                        <div class="logo-text">
+                            <h1>Newton's Group</h1>
+                            <p>Healthcare Innovation</p>
+                        </div>
+                    </div>
+                </a>
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-btn">← Back to Home</a>
+                </nav>
+                <div class="nav-links">
+                    <a href="https://newtons.in" class="nav-link" title="Home">Home</a>
+                    <a href="https://dr.newtons.in" class="nav-link" title="Newton's AI">AI</a>
+                    <a href="https://app.newtons.in" class="nav-link" title="App">App</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="all-blogs-hero">
+        <div class="container">
+            <h1>All Blogs</h1>
+            <p>Explore our complete collection of healthcare innovation content</p>
+            
+            <div class="blog-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-blogs">30,000+</div>
+                    <div class="stat-label">Total Blogs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="ai-topics">30</div>
+                    <div class="stat-label">AI Topics</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="healthcare-topics">30</div>
+                    <div class="stat-label">Healthcare Topics</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="visible-blogs">0</div>
+                    <div class="stat-label">Visible Now</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        placeholder="Search blogs by title, author, or keywords..."
+                        autocomplete="off"
+                    >
+                </div>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Categories</button>
+                <button class="filter-btn" data-filter="ai">AI Topics</button>
+                <button class="filter-btn" data-filter="healthcare">Healthcare Topics</button>
+                <button class="filter-btn" data-filter="recent">Recent First</button>
+            </div>
+
+            <div class="search-info">
+                <span id="search-results-count">Showing 20 of 30,000 blogs</span>
+                <span id="search-time">Search time: 0ms</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blogs List -->
+    <section>
+        <div class="container">
+            <div class="blogs-list" id="blogs-list"></div>
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Newton's Group</h4>
+                    <p>Transforming healthcare through innovation, technology, and compassionate care.</p>
+                    <div class="footer-quick-links">
+                        <a href="https://newtons.in" class="footer-quick-link">Home</a>
+                        <a href="https://dr.newtons.in" class="footer-quick-link">AI Platform</a>
+                        <a href="https://app.newtons.in" class="footer-quick-link">Mobile App</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="https://dr.newtons.in" target="_blank">Newton's AI</a></li>
+                        <li><a href="https://newtons.in" target="_blank">Newton's Hospitals</a></li>
+                        <li><a href="https://hms.newtons.in" target="_blank">Newton's HMS</a></li>
+                        <li><a href="https://neetpg.newtons.in" target="_blank">Newton's NEET PG</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Blog</a></li>
+                        <li><a href="all-blogs.html">All Blogs</a></li>
+                        <li><a href="https://newtons.in">Documentation</a></li>
+                        <li><a href="https://newtons.in">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="https://newtons.in">Privacy Policy</a></li>
+                        <li><a href="https://newtons.in">Terms of Service</a></li>
+                        <li><a href="https://newtons.in">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Newton's Group. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://twitter.com" target="_blank">Twitter</a>
+                    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                    <a href="https://facebook.com" target="_blank">Facebook</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Blog data will be loaded from the JSON file
+        let allBlogs = [];
+        let filteredBlogs = [];
+        let currentPage = 1;
+        const blogsPerPage = 20;
+
+        // Load blogs from JSON
+        async function loadBlogs() {
+            try {
+                const response = await fetch('/data/blogs-30k.json');
+                allBlogs = await response.json();
+                filteredBlogs = allBlogs;
+                displayBlogs();
+                updateStats();
+            } catch (error) {
+                console.error('Error loading blogs:', error);
+                document.getElementById('blogs-list').innerHTML = '<div class="no-results"><h3>Unable to load blogs</h3><p>Please try refreshing the page</p></div>';
+            }
+        }
+
+        // Display blogs with pagination
+        function displayBlogs() {
+            const start = (currentPage - 1) * blogsPerPage;
+            const end = start + blogsPerPage;
+            const blogsToShow = filteredBlogs.slice(start, end);
+
+            const blogsList = document.getElementById('blogs-list');
+            
+            if (blogsToShow.length === 0) {
+                blogsList.innerHTML = '<div class="no-results"><h3>No blogs found</h3><p>Try adjusting your search or filters</p></div>';
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+
+            blogsList.innerHTML = blogsToShow.map(blog => `
+                <div class="blog-item" onclick="window.location.href='/blogs/${blog.slug}/'">
+                    <div class="blog-item-header">
+                        <h3 class="blog-item-title">${escapeHtml(blog.title)}</h3>
+                        <span class="blog-item-badge">${blog.category}</span>
+                    </div>
+                    <p class="blog-item-excerpt">${escapeHtml(blog.excerpt)}</p>
+                    <div class="blog-item-meta">
+                        <span>✍️ ${escapeHtml(blog.author)}</span>
+                        <span>📅 ${blog.date}</span>
+                        <span>🏷️ ${blog.tags.slice(0, 2).join(', ')}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            updatePagination();
+            document.getElementById('visible-blogs').textContent = blogsToShow.length;
+        }
+
+        // Update pagination
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredBlogs.length / blogsPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            
+            if (currentPage > 1) {
+                html += `<button onclick="goToPage(${currentPage - 1})">← Previous</button>`;
+            }
+
+            for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+                html += `<button onclick="goToPage(${i})" class="${i === currentPage ? 'active' : ''}">${i}</button>`;
+            }
+
+            if (currentPage < totalPages) {
+                html += `<button onclick="goToPage(${currentPage + 1})">Next →</button>`;
+            }
+
+            pagination.innerHTML = html;
+        }
+
+        // Go to page
+        function goToPage(page) {
+            currentPage = page;
+            displayBlogs();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Search functionality
+        document.getElementById('search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const startTime = performance.now();
+
+            if (searchTerm === '') {
+                filteredBlogs = allBlogs;
+            } else {
+                filteredBlogs = allBlogs.filter(blog => 
+                    blog.title.toLowerCase().includes(searchTerm) ||
+                    blog.excerpt.toLowerCase().includes(searchTerm) ||
+                    blog.author.toLowerCase().includes(searchTerm) ||
+                    blog.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            const endTime = performance.now();
+            const searchTime = Math.round(endTime - startTime);
+
+            currentPage = 1;
+            displayBlogs();
+            updateSearchInfo(searchTime);
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.getAttribute('data-filter');
+                const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+                if (filter === 'all') {
+                    filteredBlogs = allBlogs;
+                } else if (filter === 'ai') {
+                    filteredBlogs = allBlogs.filter(blog => blog.tags.some(tag => 
+                        ['Clinical Decision Support Systems', 'Machine Learning in Diagnostics', 'Natural Language Processing in Healthcare'].includes(tag)
+                    ));
+                } else if (filter === 'healthcare') {
+                    filteredBlogs = allBlogs.filter(blog => blog.tags.some(tag => 
+                        ['Digital Health Transformation', 'Telemedicine and Remote Care', 'Healthcare Data Security'].includes(tag)
+                    ));
+                } else if (filter === 'recent') {
+                    filteredBlogs = [...allBlogs].sort((a, b) => new Date(b.date_iso) - new Date(a.date_iso));
+                }
+
+                if (searchTerm) {
+                    filteredBlogs = filteredBlogs.filter(blog => 
+                        blog.title.toLowerCase().includes(searchTerm) ||
+                        blog.excerpt.toLowerCase().includes(searchTerm) ||
+                        blog.author.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                currentPage = 1;
+                displayBlogs();
+            });
+        });
+
+        // Update search info
+        function updateSearchInfo(searchTime) {
+            document.getElementById('search-results-count').textContent = 
+                `Showing ${Math.min(blogsPerPage, filteredBlogs.length)} of ${filteredBlogs.length} blogs`;
+            document.getElementById('search-time').textContent = `Search time: ${searchTime}ms`;
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('total-blogs').textContent = allBlogs.length.toLocaleString();
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Load blogs on page load
+        window.addEventListener('load', loadBlogs);
+    </script>
+</body>
+</html>

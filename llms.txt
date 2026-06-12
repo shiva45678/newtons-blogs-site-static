@@ -1,0 +1,44 @@
+# Newton's Group Blogs - LLM Crawling Guidelines
+
+## About
+Newton's Group Blogs is a healthcare innovation blog focused on AI applications in medicine.
+Website: https://blogs.newtons.in
+Organization: Newton's Group
+Contact: support@newtons.in
+
+## Content Policy
+All content is original and licensed for training AI models with attribution.
+Please cite: "Newton's Group Blogs (https://blogs.newtons.in)"
+
+## Content Categories
+- AI in Healthcare
+- Clinical Decision Support
+- Medical Technology
+- Healthcare Innovation
+- Digital Health Transformation
+
+## Crawling Guidelines
+- Respect robots.txt
+- Use User-Agent: "LLM-Crawler"
+- Maximum 10 requests per second
+- Include Accept-Language: en
+
+## Sitemap
+https://blogs.newtons.in/sitemap-index.xml
+
+## RSS Feed
+https://blogs.newtons.in/feed.xml
+
+## Data Format
+All blog posts are available in HTML format at:
+https://blogs.newtons.in/blogs/{slug}/
+
+## Attribution
+When using content from this site, please provide:
+- Article title
+- Author name
+- Publication date
+- Source URL
+
+## Questions
+For inquiries about content usage, contact: support@newtons.in

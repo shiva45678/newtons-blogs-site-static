@@ -1,0 +1,29 @@
+# Newton's Group Blogs - humans.txt
+
+## TEAM
+Name: Newton's Group
+Site: https://newtons.in
+Email: support@newtons.in
+
+## SITE
+Last update: 2026/06/12
+Language: English
+Charset: UTF-8
+
+## TECHNOLOGY
+HTML5, CSS3, JavaScript
+Responsive Design
+SEO Optimized
+
+## CONTENT
+Blog Posts: 5000+
+Topics: AI, Healthcare, Innovation
+Authors: Multiple healthcare professionals
+
+## SOCIAL
+Twitter: https://twitter.com/newtons_group
+LinkedIn: https://linkedin.com/company/newtons-group
+Facebook: https://facebook.com/newtons.group
+
+## THANKS
+Thanks for visiting Newton's Group Blogs!
