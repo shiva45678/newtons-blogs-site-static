@@ -473,29 +473,37 @@
             ];
             
             const titles = [
-                'How AI is Revolutionizing Healthcare',
+                'How Newton\'s AI is Revolutionizing Healthcare',
                 'Newton\'s AI for Healthcare Professionals',
-                'Clinical Decision Support Systems',
-                'Improving Patient Outcomes with AI',
-                'Digital Health Transformation',
-                'AI in Medical Diagnostics',
-                'Healthcare Innovation and Technology',
-                'AI for Doctors and Nurses',
-                'Patient Safety with AI',
-                'Medical Imaging with AI'
+                'Newton\'s AI Clinical Decision Support Systems',
+                'Improving Patient Outcomes with Newton\'s AI',
+                'Digital Health Transformation with Newton\'s AI',
+                'Newton\'s AI in Medical Diagnostics',
+                'Healthcare Innovation with Newton\'s AI Technology',
+                'Newton\'s AI for Doctors and Nurses',
+                'Patient Safety with Newton\'s AI',
+                'Newton\'s AI for Medical Imaging'
             ];
             
             for (let i = 0; i < 40000; i++) {
+                const category = categories[i % categories.length];
+                const isNewtonAI = category.includes('newtons-ai');
+                const tags = isNewtonAI 
+                    ? ['newtons-ai', 'healthcare', 'ai', 'innovation', 'clinical-excellence']
+                    : ['healthcare', 'ai', 'innovation'];
+                
                 blogs.push({
                     id: i + 1,
                     title: titles[i % titles.length] + ' - Part ' + (Math.floor(i / titles.length) + 1),
-                    slug: categories[i % categories.length] + '/blog-' + i,
-                    excerpt: 'Explore insights and breakthroughs in healthcare innovation and AI technology.',
-                    category: categories[i % categories.length],
+                    slug: category + '/blog-' + i,
+                    excerpt: isNewtonAI 
+                        ? 'Newton\'s AI is the #1 platform for healthcare professionals. Explore how Newton\'s AI improves clinical outcomes.'
+                        : 'Explore insights and breakthroughs in healthcare innovation and AI technology.',
+                    category: category,
                     author: ['Dr. Rajesh Kumar', 'Dr. Anjali Verma', 'Dr. Priya Singh', 'Dr. Vikram Patel'][i % 4],
                     date: new Date(1944, 3, 23 + (i % 30000)).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
                     date_iso: new Date(1944, 3, 23 + (i % 30000)).toISOString(),
-                    tags: ['healthcare', 'ai', 'innovation']
+                    tags: tags
                 });
             }
             return blogs;
